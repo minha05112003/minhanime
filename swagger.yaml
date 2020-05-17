@@ -1,0 +1,71 @@
+openapi: 3.0.1
+info:
+  title: Ainized-UGATIT 
+  description: " "
+  contact:
+    name: Ainizer - Lee WooJae
+    email: wodndl895@gmail.com
+  version: 1.0.0
+  license:
+    name: "MIT"
+    url: https://github.com/taki0112/UGATIT
+servers:
+  - url: 'https://ugatit-gpu.kmswlee.endpoint.ainize.ai'
+
+paths:
+  /selfie2anime:
+    post:
+      tags:
+      - UGATIT
+      requestBody:
+        description: "please only input jpeg/png file. if you input other files(not jpg/png), this will not work."
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+          '200':
+            description: image translation success
+            content:
+               images/*:
+                  schema:
+                     type: string
+                     format: binary
+          '400':
+            description: Bad request (File Not Uploaded)
+          '429':
+            description: Please Reply later
+          '500':
+            description: Server Side Error (Model Test Error, File Move Error)
+  /anime2selfie:
+    post:
+      tags:
+      - UGATIT
+      requestBody:
+        description: "please only input jpeg/png file. if you input other files(not jpg/png), this will not work."
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+          '200':
+            description: image translation success
+            content:
+               images/*:
+                  schema:
+                     type: string
+                     format: binary
+          '400':
+            description: Bad request (File Not Uploaded)
+          '429':
+            description: Please Reply later
+          '500':
+            description: Server Side Error (Model Test Error, File Move Error)

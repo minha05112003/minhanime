@@ -1,0 +1,19 @@
+FROM tensorflow/tensorflow:1.14.0-gpu-py3
+
+CMD ["bash"]
+
+RUN apt-get update
+RUN pip install --upgrade pip
+RUN apt install -y libsm6 libxext6 libxrender-dev
+
+WORKDIR /workspace
+COPY --from=wodndl895/ugatit-gpu /workspace/checkpoint /workspace/checkpoint
+
+COPY requirements-gpu.txt .
+#install python package
+RUN pip install flask -r requirements-gpu.txt
+
+COPY . .
+
+EXPOSE 80
+CMD python app.py
